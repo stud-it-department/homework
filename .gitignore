@@ -1,0 +1,4 @@
+.vscode/*
+.idea/*
+rendered_config/*
+.DS_Store
