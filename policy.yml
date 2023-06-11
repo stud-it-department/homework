@@ -1,0 +1,6 @@
+project:
+  protected_branches:
+    - main
+merge_request:
+  method: fast-forward
+  squash: encourage
