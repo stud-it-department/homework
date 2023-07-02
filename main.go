@@ -17,7 +17,6 @@ import (
 func main() {
 	var dirName string
 	var infoFile string
-	var sliceFileNames []string
 
 	// input output file
 	fmt.Printf("input info-file title: ")
@@ -28,16 +27,15 @@ func main() {
 	fmt.Scanf("%s", &dirName)
 
 	n := 0
-	status := s.GetFileNames(dirName, &sliceFileNames, &n)
+	allFileNames := ""
+	status := s.GetFileNames(dirName, &allFileNames, &n)
 	if status == 0 {
 		outFile, err := os.Create(infoFile)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		for i:= 0; i < n; i++ {
-			outFile.WriteString(sliceFileNames[i])
+		outFile.WriteString(allFileNames)
 		outFile.Close()
-		}
 	}	
 }

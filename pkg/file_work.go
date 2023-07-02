@@ -7,7 +7,7 @@ import (
 )
 
 
-func GetFileNames(dirName string, sliceFileNames *[]string, n *int) int {
+func GetFileNames(dirName string, stringFileNames *string, n *int) int {
 	*n = 0
 	dir, err := os.Open(dirName)
 	if err != nil {
@@ -25,14 +25,14 @@ func GetFileNames(dirName string, sliceFileNames *[]string, n *int) int {
 					switch s.CaseNumbers(fileName) {
 						case -1: // upper fileName
 							*n += 1
-							*sliceFileNames = append(*sliceFileNames, s.FileNameUpper(fileName))
+							*stringFileNames += s.FileNameUpper(fileName) + "\n"
 						case 0: // remove numbers from fileName
 							*n += 1
-							*sliceFileNames = append(*sliceFileNames, s.RemoveNumbers(fileName))
+							*stringFileNames += s.RemoveNumbers(fileName) + "\n"
 						case 1: // make a note abt it
-							message := "this file " + fileName + " is special, don't touch it\n"
 							*n += 1
-							*sliceFileNames = append(*sliceFileNames, message)
+							message := "this file " + fileName + " is special, don't touch it\n"
+							*stringFileNames += message
 						}
 				}
 			}
