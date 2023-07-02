@@ -9,8 +9,7 @@ package main
 import (
 	"fmt"
 	"os"
-	s "github.com/just-rudy/stud-hw/StringWork"
-
+	s "github.com/just-rudy/stud-hw/pkg"
 )
 
 
@@ -18,6 +17,7 @@ import (
 func main() {
 	var dirName string
 	var infoFile string
+	var sliceFileNames []string
 
 	// input output file
 	fmt.Printf("input info-file title: ")
@@ -27,36 +27,17 @@ func main() {
 	fmt.Printf("input dir name: ")
 	fmt.Scanf("%s", &dirName)
 
-	// open dir and read files in it
-	dir, err := os.Open(dirName)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		files, err := dir.ReadDir(0)
+	n := 0
+	status := s.GetFileNames(dirName, &sliceFileNames, &n)
+	if status == 0 {
+		outFile, err := os.Create(infoFile)
 		if err != nil {
 			fmt.Println(err)
-		} else {
-			// open output file for writing
-			outFile, err := os.Create(infoFile)
-			if err != nil {
-				fmt.Println(err)
-			} else {
-				for _, file := range files {
-					if !file.IsDir() {
-						fileName := file.Name()
-						switch s.CaseNumbers(fileName) {
-						case -1: // upper fileName
-							outFile.WriteString(s.FileNameUpper(fileName))
-						case 0: // remove numbers from fileName
-							outFile.WriteString(s.RemoveNumbers(fileName))
-						case 1: // make a note abt it
-							message := "this file " + fileName + " is special, don't touch it\n"
-							outFile.WriteString(message)
-						}
-					}
-				}
-				outFile.Close()
-			}
+			return
 		}
-	}
+		for i:= 0; i < n; i++ {
+			outFile.WriteString(sliceFileNames[i])
+		outFile.Close()
+		}
+	}	
 }
