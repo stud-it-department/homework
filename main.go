@@ -47,6 +47,7 @@ func removeNumbers(str string) string {
 			strNoNums += string(ch)
 		}
 	}
+	strNoNums += "\n"
 	return strNoNums
 }
 
@@ -69,6 +70,7 @@ func fileNameUpper(str string) string {
 			strUpper += string(ch)
 		}
 	}
+	strUpper += "\n"
 	return strUpper
 }
 
@@ -78,7 +80,7 @@ func main() {
 
 	// input output file
 	fmt.Printf("input info-file title: ")
-	fmt.Scanf("%s", infoFile)
+	fmt.Scanf("%s", &infoFile)
 
 	// input directory name
 	fmt.Printf("input dir name: ")
@@ -94,7 +96,7 @@ func main() {
 			fmt.Println(err)
 		} else {
 			// open output file for writing
-			outFile, err := os.OpenFile(infoFile, os.O_WRONLY, 0666)
+			outFile, err := os.Create(infoFile)
 			if err != nil {
 				fmt.Println(err)
 			} else {
@@ -104,12 +106,12 @@ func main() {
 						switch caseNumbers(fileName) {
 						case -1: // upper fileName
 							outFile.WriteString(fileNameUpper(fileName))
-							fmt.Println(fileNameUpper(fileName))
+							//fmt.Println(fileNameUpper(fileName))
 						case 0: // remove numbers from fileName
 							outFile.WriteString(removeNumbers(fileName))
-							fmt.Println(removeNumbers(fileName))
+							// fmt.Println(removeNumbers(fileName))
 						case 1: // make a note abt it
-							message := "this file " + fileName + " is special, don't touch it"
+							message := "this file " + fileName + " is special, don't touch it\n"
 							outFile.WriteString(message)
 						}
 					}
