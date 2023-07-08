@@ -9,27 +9,35 @@ package main
 import (
 	"fmt"
 	"os"
-	s "github.com/just-rudy/stud-hw/pkg"
+	filesFromDir "github.com/just-rudy/stud-hw/pkg"
 )
 
-
-
 func main() {
-	var dirName string
-	var infoFile string
+	// var (
+	// 	dirName string
+	// 	infoFile string
+	// )
+	// reading from arguments directory then info-file
+	
+	if len(os.Args) < 3 {
+		fmt.Println("Not enought arguments")
+		return
+	}
+
+	arguments := os.Args[1:]
+	dirName := arguments[0]
+	infoFile := arguments[1]
 
 	// input output file
-	fmt.Printf("input info-file title: ")
-	fmt.Scanf("%s", &infoFile)
+	//fmt.Printf("input info-file title: ")
+	//fmt.Scanf("%s", &infoFile)
 
 	// input directory name
-	fmt.Printf("input dir name: ")
-	fmt.Scanf("%s", &dirName)
+	// fmt.Printf("input dir name: ") // arguments, not reading
+	// fmt.Scanf("%s", &dirName)
 
-	n := 0
-	allFileNames := ""
-	status := s.GetFileNames(dirName, &allFileNames, &n)
-	if status == 0 {
+	allFileNames, err := filesFromDir.GetFileNames(dirName)
+	if err != "" {
 		outFile, err := os.Create(infoFile)
 		if err != nil {
 			fmt.Println(err)
