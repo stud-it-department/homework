@@ -1,7 +1,6 @@
-package file
+package pkg
 
 import (
-	s "./StringWork"
 	"log"
 	"os"
 )
@@ -25,7 +24,7 @@ func RecieveDirectoryContent(path string, names *string) {
 				newPath := currentPath + "/" + entry.Name()
 				stack = append(stack, newPath)
 			} else {
-				*names += s.RemoveDigits(entry.Name()) + "\n"
+				*names += RemoveDigits(entry.Name()) + "\n"
 			}
 		}
 	}
