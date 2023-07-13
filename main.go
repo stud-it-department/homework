@@ -1,8 +1,8 @@
 package main
 
 import (
-	f "./Files"
 	"fmt"
+	f "github.com/c9llm3bones/homework/pkg/pkg"
 	"log"
 	"os"
 )
