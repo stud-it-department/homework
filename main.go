@@ -22,8 +22,7 @@ func main() {
 	rootPath := ""
 	fmt.Scanln(&rootPath)
 
-	names := ""
-	f.RecieveDirectoryContent(rootPath, &names)
+	names := f.RecieveDirectoryContent(rootPath)
 	fmt.Println(names)
 
 	er := fd.Close()
